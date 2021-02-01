@@ -35,7 +35,7 @@ export default function SearchBar(props) {
   };
 
   const triggerSearch = () => {
-    if (props.onSearch) {
+    if (props.onSearch && !!searchTerm) {
       props.onSearch(searchTerm);
     }
   };

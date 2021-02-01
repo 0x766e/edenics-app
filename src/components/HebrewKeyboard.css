@@ -7,6 +7,7 @@
   position: fixed;
   top: 20%;
   left: 30%;
+  z-index: 1000;
 }
 
 .keyboard-close-button {
