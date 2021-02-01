@@ -17,7 +17,7 @@ export default function App() {
     <Container>
       <Switch>
         <Route path="/search">
-          <Result query={extractQuery()} />
+          <Result query={extractQuery()} onSearch={handleSearch} />
         </Route>
         <Route path="*">
           <Home onSearch={handleSearch} />
