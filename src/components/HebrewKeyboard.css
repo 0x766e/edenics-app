@@ -1,11 +1,14 @@
 .simple-keyboard {
-  padding: 30px;
+  padding: 50px 30px 30px 30px;
   width: 300px;
 }
 
 .keyboard-container {
   position: fixed;
-  width: 360px;
   top: 20%;
   left: 30%;
+}
+
+.keyboard-close-button {
+  position: absolute;
 }

@@ -24,7 +24,9 @@ export default function HebrewKeyboard(props) {
   return (
     <Draggable>
       <div className="keyboard-container">
-        <CloseButton onClick={props.onClose} />
+        <div className="keyboard-close-button">
+          <CloseButton onClick={props.onClose} />
+        </div>
         <Keyboard {...props} layout={hebrew} rtl={true} display={keyLabels} />
       </div>
     </Draggable>
