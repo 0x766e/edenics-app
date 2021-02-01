@@ -1,12 +1,12 @@
 import React from 'react';
-import Search from './modules/Search';
-import './styles.css';
+import Container from 'react-bootstrap/Container';
+import 'bootswatch/dist/litera/bootstrap.min.css';
+import Home from './modules/Home';
 
 export default function App() {
   return (
-    <div className='App'>
-      <h1 className='logo'>Edenics Tools</h1>
-      <Search />
-    </div>
+    <Container>
+      <Home />
+    </Container>
   );
 }
