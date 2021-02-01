@@ -6,4 +6,6 @@
 .keyboard-container {
   position: fixed;
   width: 360px;
+  top: 20%;
+  left: 30%;
 }
