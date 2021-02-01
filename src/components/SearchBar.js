@@ -28,6 +28,12 @@ export default function SearchBar(props) {
     setKeyboardActive(!keyboardActive);
   };
 
+  const handleKey = (key) => {
+    if (key === '{enter}' && props.onSearch) {
+      props.onSearch();
+    }
+  };
+
   return (
     <Container>
       <SearchField
@@ -41,6 +47,7 @@ export default function SearchBar(props) {
         <HebrewKeyboard
           keyboardRef={(r) => (keyboard.current = r)}
           onChange={propagateKeyboardChanges}
+          onKeyPress={handleKey}
         />
       )}
     </Container>
