@@ -13,8 +13,7 @@
     "react-icons": "4.1.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.1",
-    "react-simple-keyboard": "2.5.121",
-    "simple-keyboard-layouts": "1.15.108"
+    "react-simple-keyboard": "2.5.121"
   },
   "devDependencies": {
     "typescript": "4.1.3"
