@@ -64,6 +64,7 @@ export default function SearchBar(props) {
         <HebrewKeyboard
           keyboardRef={(r) => (keyboard.current = r)}
           onChange={propagateKeyboardChanges}
+          onClose={handleKeyboardClick}
           onKeyPress={handleKey}
         />
       )}

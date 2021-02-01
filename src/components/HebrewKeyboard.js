@@ -1,6 +1,9 @@
 import React from 'react';
 import Keyboard from 'react-simple-keyboard';
+import Draggable from 'react-draggable';
+import CloseButton from './CloseButton';
 import 'react-simple-keyboard/build/css/index.css';
+import './HebrewKeyboard.css';
 
 const hebrew = {
   default: [
@@ -18,5 +21,12 @@ const keyLabels = {
 };
 
 export default function HebrewKeyboard(props) {
-  return <Keyboard {...props} layout={hebrew} rtl={true} display={keyLabels} />;
+  return (
+    <Draggable>
+      <div className="keyboard-container">
+        <CloseButton onClick={props.onClose} />
+        <Keyboard {...props} layout={hebrew} rtl={true} display={keyLabels} />
+      </div>
+    </Draggable>
+  );
 }

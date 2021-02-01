@@ -1,0 +1,9 @@
+.simple-keyboard {
+  padding: 30px;
+  width: 300px;
+}
+
+.keyboard-container {
+  position: fixed;
+  width: 360px;
+}
