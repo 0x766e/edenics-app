@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import Container from 'react-bootstrap/Container';
 import HebrewKeyboard from './HebrewKeyboard';
 import SearchField from './SearchField';
 
@@ -52,7 +51,7 @@ export default function SearchBar(props) {
   };
 
   return (
-    <Container>
+    <>
       <SearchField
         {...props}
         value={searchTerm}
@@ -71,6 +70,6 @@ export default function SearchBar(props) {
           onKeyPress={handleVirtualKKeyboardKey}
         />
       )}
-    </Container>
+    </>
   );
 }

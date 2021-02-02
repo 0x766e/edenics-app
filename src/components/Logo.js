@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 export default function Logo(props) {
   const style = {
-    width: '20%',
+    width: props.isCompact ? '14%' : '20%',
     height: 'auto',
   };
 

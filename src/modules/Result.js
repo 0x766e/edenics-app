@@ -13,37 +13,39 @@ export default function Result(props) {
   return (
     <WordContext.Consumer>
       {(currentWord) => (
-        <Container>
+        <>
           <NavigationBar onSearch={props.onSearch} />
-          <Tabs
-            defaultActiveKey="profile"
-            activeKey={selectedTab}
-            onSelect={(tab) => setSelectedTab(tab)}
-          >
-            <Tab eventKey="transcription" title="Transcription">
-              <Card>
-                <Card.Body>
-                  <Card.Title>{currentWord}</Card.Title>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-            </Tab>
-          </Tabs>
-        </Container>
+          <Container className="mt-5">
+            <Tabs
+              defaultActiveKey="profile"
+              activeKey={selectedTab}
+              onSelect={(tab) => setSelectedTab(tab)}
+            >
+              <Tab eventKey="transcription" title="Transcription">
+                <Card>
+                  <Card.Body>
+                    <Card.Title>{currentWord}</Card.Title>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                </Card>
+              </Tab>
+            </Tabs>
+          </Container>
+        </>
       )}
     </WordContext.Consumer>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import 'bootswatch/dist/litera/bootstrap.min.css';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import useQuery from './hooks/useQuery';
@@ -16,16 +15,14 @@ export default function App() {
 
   return (
     <WordContext.Provider value={extractQuery()}>
-      <Container>
-        <Switch>
-          <Route path="/search">
-            <Result onSearch={handleSearch} />
-          </Route>
-          <Route path="*">
-            <Home onSearch={handleSearch} />
-          </Route>
-        </Switch>
-      </Container>
+      <Switch>
+        <Route path="/search">
+          <Result onSearch={handleSearch} />
+        </Route>
+        <Route path="*">
+          <Home onSearch={handleSearch} />
+        </Route>
+      </Switch>
     </WordContext.Provider>
   );
 }
