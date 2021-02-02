@@ -23,7 +23,7 @@ export default function Result(props) {
 
   return (
     <>
-      <NavigationBar onSearch={props.onSearch} />
+      <NavigationBar searchTerm={currentWord} onSearch={props.onSearch} />
       <Container className="mt-5">
         <Tabs
           defaultActiveKey="profile"

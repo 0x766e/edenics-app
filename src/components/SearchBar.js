@@ -3,7 +3,7 @@ import HebrewKeyboard from './HebrewKeyboard';
 import SearchField from './SearchField';
 
 export default function SearchBar(props) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(props.value);
   const [keyboardActive, setKeyboardActive] = useState(!!props.keyboardVisible);
   const keyboard = useRef();
 

@@ -13,7 +13,11 @@ export default function NavigationBar(props) {
 
       <Navbar.Collapse className="justify-content-end">
         <Form inline>
-          <SearchBar isCompact onSearch={props.onSearch} />
+          <SearchBar
+            isCompact
+            onSearch={props.onSearch}
+            value={props.searchTerm}
+          />
         </Form>
       </Navbar.Collapse>
     </Navbar>
