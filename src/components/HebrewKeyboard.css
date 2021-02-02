@@ -1,12 +1,12 @@
 .simple-keyboard {
   padding: 50px 30px 30px 30px;
-  width: 300px;
+  width: 320px;
 }
 
 .keyboard-container {
   position: fixed;
-  top: 20%;
-  left: 30%;
+  top: 44%;
+  left: 35%;
   z-index: 1000;
 }
 

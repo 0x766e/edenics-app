@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import HebrewKeyboard from './HebrewKeyboard';
 import SearchField from './SearchField';
 
@@ -40,7 +39,13 @@ export default function SearchBar(props) {
     }
   };
 
-  const handleKey = (key) => {
+  const handleKeyboardKey = (event) => {
+    if (event.charCode === 13) {
+      triggerSearch();
+    }
+  };
+
+  const handleVirtualKKeyboardKey = (key) => {
     if (key === '{enter}') {
       triggerSearch();
     }
@@ -54,18 +59,16 @@ export default function SearchBar(props) {
         keyboardIconActive={keyboardActive}
         onKeyboardButtonClick={handleKeyboardClick}
         onChange={updateKeyboardOnChange}
+        onKeyPress={handleKeyboardKey}
+        onSearchClick={triggerSearch}
       />
-
-      <Button variant="primary" onClick={triggerSearch}>
-        Search
-      </Button>
 
       {keyboardActive && (
         <HebrewKeyboard
           keyboardRef={(r) => (keyboard.current = r)}
           onChange={propagateKeyboardChanges}
           onClose={handleKeyboardClick}
-          onKeyPress={handleKey}
+          onKeyPress={handleVirtualKKeyboardKey}
         />
       )}
     </Container>

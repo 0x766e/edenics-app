@@ -5,7 +5,7 @@ import { FaRegKeyboard as IconKeyboardInactive } from 'react-icons/fa';
 
 export default function KeyboardButton(props) {
   return (
-    <Button {...props} variant="outline-dark">
+    <Button {...props} variant="outline-light" active>
       {props.keyboardIconActive ? (
         <IconKeyboardActive />
       ) : (

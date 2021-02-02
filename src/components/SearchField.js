@@ -2,6 +2,7 @@ import React from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import KeyboardButton from './KeyboardButton';
+import SearchButton from './SearchButton';
 
 export default function SearchField(props) {
   const onKeyboardButtonClick = () => {
@@ -19,6 +20,9 @@ export default function SearchField(props) {
         />
       </InputGroup.Prepend>
       <FormControl {...props} type="text" placeholder="Hebrew root" />
+      <InputGroup.Append>
+        <SearchButton onClick={props.onSearchClick} />
+      </InputGroup.Append>
     </InputGroup>
   );
 }

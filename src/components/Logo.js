@@ -1,5 +1,17 @@
 import React from 'react';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
 
 export default function Logo(props) {
-  return <h1>Edenics</h1>;
+  const style = {
+    width: '20%',
+    height: 'auto',
+  };
+
+  return (
+    <Container>
+      <Image style={style} src="logo.png" />
+      {props.isCompact ? null : <h2>Edenics</h2>}
+    </Container>
+  );
 }
