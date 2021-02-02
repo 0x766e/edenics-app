@@ -1,3 +1,9 @@
+import * as edenic from './edenic';
+
 export default {
-  ping: 'pong',
+  transcription: {
+    fromHebrew(word) {
+      return Promise.resolve(edenic.transcribeHebrewWord(word));
+    },
+  },
 };

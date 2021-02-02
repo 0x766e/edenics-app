@@ -3,8 +3,5 @@
  */
 export const filterOut = (word, letters) => {
   if (!word) return word;
-  return word
-    .split('')
-    .filter((l) => !letters.includes(l))
-    .join('');
+  return [...word].filter((l) => !letters.includes(l)).join('');
 };

@@ -2,7 +2,7 @@ import { appendPossibilitiesForLetters } from './combinators';
 
 const MAPPING_HEBREW = {
   א: ['A', 'E', 'I', 'O', 'U'], //TODO Should replace by OO or OA?
-  'ב‎': ['B', 'BH', '(V)'],
+  ב: ['B', 'BH', '(V)'],
   ג: ['G'],
   ד: ['D'],
   ה: ['H'],
@@ -10,7 +10,7 @@ const MAPPING_HEBREW = {
   ז: ['Z'],
   ח: ['[K]H', 'K[H]'],
   ט: ['DT'],
-  'י‎': ['Y'],
+  י: ['Y'],
   כ: ['K', 'KH'],
   ך: ['K', 'KH'],
   ל: ['L'],
@@ -45,5 +45,7 @@ export const transcribeHebrewLetter = (hebrewLetter) =>
 /**
  * Transcribe a hebrew word to an array of Edenic possibilities.
  */
-export const transcribeHebrewWord = (hebrewWord) =>
-  appendPossibilitiesForLetters(hebrewWord, transcribeHebrewLetter);
+export const transcribeHebrewWord = (hebrewWord) => {
+  const validWord = [...hebrewWord].filter((l) => isHebrewLetter(l)).join('');
+  return appendPossibilitiesForLetters(validWord, transcribeHebrewLetter);
+};
