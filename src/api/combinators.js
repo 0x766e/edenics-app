@@ -1,21 +1,28 @@
 /**
- * Generates all permutations of a string
+ * Generates all permutations of an array.
  */
-export const permutations = (word) => {
-  if (!word) return [];
+export const permutations = (inputArr) => {
+  const result = [];
 
-  if (word.length <= 2)
-    return word.length === 2 ? [word, word[1] + word[0]] : [word];
+  if (!inputArr || inputArr.length === 0) {
+    return result;
+  }
 
-  return [...word].reduce(
-    (acc, letter, i) =>
-      acc.concat(
-        permutations(word.slice(0, i) + word.slice(i + 1)).map(
-          (val) => letter + val,
-        ),
-      ),
-    [],
-  );
+  const permute = (arr, m = []) => {
+    if (arr.length === 0) {
+      result.push(m);
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        const curr = arr.slice();
+        const next = curr.splice(i, 1);
+        permute(curr.slice(), m.concat(next));
+      }
+    }
+  };
+
+  permute(inputArr);
+
+  return result;
 };
 
 /**

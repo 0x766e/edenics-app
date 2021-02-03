@@ -3,20 +3,32 @@ import * as c from './combinators';
 describe('Combinatory functions', () => {
   describe('permutations', () => {
     test('empty', () => {
-      expect(c.permutations('').sort()).toEqual([].sort());
+      expect(c.permutations('')).toEqual([]);
     });
 
     test('1 element', () => {
-      expect(c.permutations('a').sort()).toEqual(['a'].sort());
+      expect(c.permutations(['a'])).toEqual([['a']]);
     });
 
     test('2 elements', () => {
-      expect(c.permutations('ab').sort()).toEqual(['ab', 'ba'].sort());
+      expect(c.permutations(['a', 'b']).sort()).toEqual(
+        [
+          ['a', 'b'],
+          ['b', 'a'],
+        ].sort(),
+      );
     });
 
     test('3 elements', () => {
-      expect(c.permutations('abc').sort()).toEqual(
-        ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'].sort(),
+      expect(c.permutations(['a', 'b', 'c']).sort()).toEqual(
+        [
+          ['a', 'b', 'c'],
+          ['a', 'c', 'b'],
+          ['b', 'a', 'c'],
+          ['b', 'c', 'a'],
+          ['c', 'a', 'b'],
+          ['c', 'b', 'a'],
+        ].sort(),
       );
     });
   });
