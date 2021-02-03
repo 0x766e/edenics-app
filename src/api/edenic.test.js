@@ -24,7 +24,7 @@ describe('edenic', () => {
     });
 
     test('Letter with one option', () => {
-      expect(e.transcribeHebrewLetter('י‎')).toEqual(['Y']);
+      expect(e.transcribeHebrewLetter('י')).toEqual(['Y']);
     });
 
     test('Invalid letter', () => {
