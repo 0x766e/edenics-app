@@ -3,7 +3,8 @@ import * as c from './combinators';
 describe('Combinatory functions', () => {
   describe('permutations', () => {
     test('empty', () => {
-      expect(c.permutations('')).toEqual([]);
+      expect(c.permutations(null)).toEqual([]);
+      expect(c.permutations([])).toEqual([]);
     });
 
     test('1 element', () => {
@@ -19,7 +20,7 @@ describe('Combinatory functions', () => {
       );
     });
 
-    test('3 elements', () => {
+    test('n elements', () => {
       expect(c.permutations(['a', 'b', 'c']).sort()).toEqual(
         [
           ['a', 'b', 'c'],
@@ -33,48 +34,71 @@ describe('Combinatory functions', () => {
     });
   });
 
-  describe('appendPossibilitiese', () => {
-    test('Using word and possibilities', () => {
-      expect(c.appendPossibilities('abc', ['1', '2', '3'])).toEqual([
-        'abc1',
-        'abc2',
-        'abc3',
+  describe('appendPossibilities', () => {
+    test('Empty array and empty possibilities', () => {
+      expect(c.appendPossibilities([], [])).toEqual([]);
+      expect(c.appendPossibilities(null, null)).toEqual([]);
+    });
+
+    test('Empty array with possibilities', () => {
+      expect(c.appendPossibilities(null, ['1', '2', '3'])).toEqual([
+        ['1'],
+        ['2'],
+        ['3'],
       ]);
-    });
-
-    test('Empty word and possibilities', () => {
-      expect(c.appendPossibilities('', [])).toEqual([]);
-    });
-
-    test('Empty word', () => {
-      expect(c.appendPossibilities('', ['1', '2', '3'])).toEqual([
-        '1',
-        '2',
-        '3',
+      expect(c.appendPossibilities([], ['1', '2', '3'])).toEqual([
+        ['1'],
+        ['2'],
+        ['3'],
       ]);
     });
 
     test('Empty possibilities', () => {
-      expect(c.appendPossibilities('abc', [])).toEqual(['abc']);
+      expect(c.appendPossibilities(['a', 'b', 'c'], [])).toEqual([
+        'a',
+        'b',
+        'c',
+      ]);
+      expect(c.appendPossibilities(['a', 'b', 'c'], null)).toEqual([
+        'a',
+        'b',
+        'c',
+      ]);
+    });
+
+    test('Array and possibilities', () => {
+      expect(c.appendPossibilities(['a', 'b', 'c'], ['1', '2', '3'])).toEqual([
+        ['a', 'b', 'c', '1'],
+        ['a', 'b', 'c', '2'],
+        ['a', 'b', 'c', '3'],
+      ]);
     });
   });
 
-  describe('appendPossibilitiesForLetters', () => {
-    test('Empty word', () => {
-      expect(c.appendPossibilitiesForLetters('', (f) => [f])).toEqual([]);
+  describe('appendGeneratedPossibilities', () => {
+    test('Empty array', () => {
+      expect(c.appendGeneratedPossibilities([], (f) => [f])).toEqual([]);
+      expect(c.appendGeneratedPossibilities(null, (f) => [f])).toEqual([]);
     });
 
-    test('Non empty word', () => {
+    test('Empty possibilities', () => {
+      expect(c.appendGeneratedPossibilities(['a'], (f) => [])).toEqual([]);
+      expect(c.appendGeneratedPossibilities(['a'], (f) => null)).toEqual([]);
+    });
+
+    test('Non empty array with possibilities', () => {
       const generator = (letter) => [
         letter.toUpperCase().charCodeAt(0).toString(),
         letter.toLowerCase().charCodeAt(0).toString(),
       ];
 
-      expect(c.appendPossibilitiesForLetters('ab', generator).sort()).toEqual([
-        '6566',
-        '6598',
-        '9766',
-        '9798',
+      expect(
+        c.appendGeneratedPossibilities(['a', 'b'], generator).sort(),
+      ).toEqual([
+        ['65', '66'],
+        ['65', '98'],
+        ['97', '66'],
+        ['97', '98'],
       ]);
     });
   });

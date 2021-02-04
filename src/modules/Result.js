@@ -19,7 +19,7 @@ export default function Result(props) {
     api.transcription
       .fromHebrew(currentWord)
       .then((result) => setTranscription(result));
-  }, [currentWord]);
+  }, [currentWord, api.transcription]);
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function Result(props) {
                   <tbody>
                     {transcription.map((t) => (
                       <tr>
-                        <td>{t}</td>
+                        <td>{t.join('.')}</td>
                       </tr>
                     ))}
                   </tbody>

@@ -1,66 +1,73 @@
 /**
  * Generates all permutations of an array.
  */
-export const permutations = (inputArr) => {
+export const permutations = (arr) => {
   const result = [];
 
-  if (!inputArr || inputArr.length === 0) {
+  if (!arr || arr.length === 0) {
     return result;
   }
 
-  const permute = (arr, m = []) => {
-    if (arr.length === 0) {
+  const permute = (permutationArray, m = []) => {
+    if (permutationArray.length === 0) {
       result.push(m);
     } else {
-      for (let i = 0; i < arr.length; i++) {
-        const curr = arr.slice();
+      for (let i = 0; i < permutationArray.length; i++) {
+        const curr = permutationArray.slice();
         const next = curr.splice(i, 1);
         permute(curr.slice(), m.concat(next));
       }
     }
   };
 
-  permute(inputArr);
+  permute(arr);
 
   return result;
 };
 
 /**
- * Generates an array of all new possibilities after appending the values from the array possibilities to the word.
+ * Generates an array after appending the values from the array of possibilities.
  */
-export const appendPossibilities = (word, possibilities) => {
-  const hasNoPossibilities = !possibilities || possibilities.length === 0;
-  if (!word && hasNoPossibilities) {
+export const appendPossibilities = (arr, possibilities) => {
+  const emptyArray = !arr || arr.length === 0;
+  const emptyPossibilities = !possibilities || possibilities.length === 0;
+
+  if (emptyArray && emptyPossibilities) {
     return [];
   }
 
-  if (!word) {
-    return possibilities;
+  if (emptyArray) {
+    return possibilities.map((p) => [p]);
   }
 
-  if (hasNoPossibilities) {
-    return [word];
+  if (emptyPossibilities) {
+    return [...arr];
   }
 
-  return possibilities.flatMap((p) => word + p);
+  return possibilities.map((p) => [...arr, p]);
 };
 
 /**
- * Generates and appends all the possibilities for each letter and returns an array with every combination.
+ * Generates and appends all the possibilities for each element and returns an array with every combination.
  */
-export const appendPossibilitiesForLetters = (word, generatePossibilities) => {
-  if (!word || !generatePossibilities) {
+export const appendGeneratedPossibilities = (arr, generatePossibilities) => {
+  const emptyArray = !arr || arr.length === 0;
+
+  if (emptyArray) {
     return [];
   }
 
-  return [...word].reduce(
-    (acc, current) => {
-      const possibilities = generatePossibilities(current);
+  return [...arr].reduce((result, item) => {
+    const possibilities = generatePossibilities(item);
 
-      return acc.flatMap((partialWord) =>
-        appendPossibilities(partialWord, possibilities),
-      );
-    },
-    [''],
-  );
+    if (!possibilities || possibilities.length === 0) {
+      return [...result];
+    }
+
+    if (result.length === 0) {
+      return possibilities.map((p) => [p]);
+    }
+
+    return result.flatMap((p) => appendPossibilities(p, possibilities));
+  }, []);
 };

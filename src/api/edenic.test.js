@@ -35,12 +35,12 @@ describe('edenic', () => {
   describe('transcribeHebrewWord', () => {
     test('Transcribe word with valid hebrew letters', () => {
       expect(e.transcribeHebrewWord('שפה').sort()).toEqual([
-        'SFH',
-        'SHFH',
-        'SHPH',
-        'SHPHH',
-        'SPH',
-        'SPHH',
+        ['S', 'F', 'H'],
+        ['S', 'P', 'H'],
+        ['S', 'PH', 'H'],
+        ['SH', 'F', 'H'],
+        ['SH', 'P', 'H'],
+        ['SH', 'PH', 'H'],
       ]);
     });
 

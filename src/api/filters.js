@@ -1,7 +1,7 @@
 /**
- * Filters out the letters from a word.
+ * Filters out the items from an array.
  */
-export const filterOut = (word, letters) => {
-  if (!word) return word;
-  return [...word].filter((l) => !letters.includes(l)).join('');
+export const filterOut = (arr, items) => {
+  if (!arr || arr.length === 0) return [];
+  return arr.filter((item) => !items.includes(item));
 };

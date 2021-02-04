@@ -1,4 +1,4 @@
-import { appendPossibilitiesForLetters } from './combinators';
+import { appendGeneratedPossibilities } from './combinators';
 
 const MAPPING_HEBREW = {
   א: ['A', 'E', 'I', 'O', 'U'], //TODO Should replace by OO or OA?
@@ -46,6 +46,6 @@ export const transcribeHebrewLetter = (hebrewLetter) =>
  * Transcribe a hebrew word to an array of Edenic possibilities.
  */
 export const transcribeHebrewWord = (hebrewWord) => {
-  const validWord = [...hebrewWord].filter((l) => isHebrewLetter(l)).join('');
-  return appendPossibilitiesForLetters(validWord, transcribeHebrewLetter);
+  const validWord = [...hebrewWord].filter((l) => isHebrewLetter(l));
+  return appendGeneratedPossibilities(validWord, transcribeHebrewLetter);
 };
