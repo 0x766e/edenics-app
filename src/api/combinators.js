@@ -22,7 +22,7 @@ export const permutations = (arr) => {
 
   permute(arr);
 
-  return result;
+  return [...new Set(result)];
 };
 
 /**
@@ -44,7 +44,7 @@ export const appendPossibilities = (arr, possibilities) => {
     return [...arr];
   }
 
-  return possibilities.map((p) => [...arr, p]);
+  return [...new Set(possibilities.map((p) => [...arr, p]))];
 };
 
 /**
@@ -68,6 +68,48 @@ export const appendGeneratedPossibilities = (arr, generatePossibilities) => {
       return possibilities.map((p) => [p]);
     }
 
-    return result.flatMap((p) => appendPossibilities(p, possibilities));
+    return [
+      ...new Set(result.flatMap((p) => appendPossibilities(p, possibilities))),
+    ];
   }, []);
+};
+
+/**
+ * Generates all the subsets of an array.
+ */
+export const subsets = (arr) => {
+  if (!arr || arr.length === 0) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      arr.reduce(
+        (subsets, value) =>
+          subsets.concat(subsets.map((set) => [value, ...set])),
+        [[]],
+      ),
+    ),
+  ];
+};
+
+/**
+ * Inserts an item in every possible subsets of indexes.
+ */
+export const permutateInsertions = (arr, item) => {
+  if (!arr || arr.length === 0) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      subsets([...arr.keys(), arr.length]).map((p) => {
+        const result = [...arr];
+        p.forEach((insertionIndex) => {
+          result.splice(insertionIndex, 0, item);
+        });
+        return result;
+      }),
+    ),
+  ];
 };

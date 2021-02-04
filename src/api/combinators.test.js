@@ -102,4 +102,40 @@ describe('Combinatory functions', () => {
       ]);
     });
   });
+
+  describe('subsets', () => {
+    test('empty array', () => {
+      expect(c.subsets([])).toEqual([]);
+      expect(c.subsets(null)).toEqual([]);
+    });
+
+    test('non-empty array', () => {
+      expect(c.subsets(['a', 'b']).sort()).toEqual([
+        [],
+        ['a'],
+        ['b'],
+        ['b', 'a'],
+      ]);
+    });
+  });
+
+  describe('permutateInsertions', () => {
+    test('Empty array', () => {
+      expect(c.permutateInsertions([], 'a')).toEqual([]);
+      expect(c.permutateInsertions(null, 'a')).toEqual([]);
+    });
+
+    test('Non-Empty array', () => {
+      expect(c.permutateInsertions(['a', 'b'], 'x').sort()).toEqual([
+        ['a', 'b'],
+        ['a', 'b', 'x'],
+        ['a', 'x', 'b'],
+        ['a', 'x', 'b', 'x'],
+        ['x', 'a', 'b'],
+        ['x', 'a', 'b', 'x'],
+        ['x', 'a', 'x', 'b'],
+        ['x', 'a', 'x', 'b', 'x'],
+      ]);
+    });
+  });
 });
