@@ -115,21 +115,30 @@ export const permutateInsertions = (arr, item) => {
 };
 
 //TODO Make it clear the difference between combinations and permutations
+//WIP Rethink about it
 export const insertAllPossibleCombinations = (arr, items) => {
-  const indexCombinations = subsets([...arr.keys(), arr.length]); //FIXME This is not considering the order (they're just subsets)
-  console.log(JSON.stringify(indexCombinations, null, 2));
+  console.log(`${arr} => ${items}`);
 
-  const itemsCombinations = subsets(items).reduce((map, itemCombination) => {
-    const combinationLength = itemCombination.length;
-    if (combinationLength > 0) {
-      map[combinationLength] = map[combinationLength]
-        ? [...map[combinationLength], itemCombination]
-        : [itemCombination];
-    }
-    return map;
-  }, {});
+  const indexCombinations = subsets([...arr.keys(), arr.length])
+    .filter((ic) => ic.length > 0)
+    .flatMap((c) => permutations(c));
+  // console.log(JSON.stringify(indexCombinations, null, 2)); //CORRECT
 
-  // console.log(JSON.stringify(itemsCombinations, null, 2));
+  const itemsCombinations = subsets(items)
+    .filter((ic) => ic.length > 0)
+    .flatMap((c) => permutations(c))
+    .reduce((map, itemCombination) => {
+      const combinationLength = itemCombination.length;
+      console.log(JSON.stringify(itemCombination, null, 2));
+
+      if (combinationLength > 0) {
+        map[combinationLength] = map[combinationLength]
+          ? [...map[combinationLength], itemCombination]
+          : [itemCombination];
+      }
+      return map;
+    }, {});
+  console.log(JSON.stringify(itemsCombinations, null, 2));
 
   return indexCombinations.flatMap((indexCombination) => {
     const possibilities = itemsCombinations[indexCombination.length];
