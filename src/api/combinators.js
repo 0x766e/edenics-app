@@ -113,3 +113,36 @@ export const permutateInsertions = (arr, item) => {
     ),
   ];
 };
+
+//TODO Make it clear the difference between combinations and permutations
+export const insertAllPossibleCombinations = (arr, items) => {
+  const indexCombinations = subsets([...arr.keys(), arr.length]); //FIXME This is not considering the order (they're just subsets)
+  console.log(JSON.stringify(indexCombinations, null, 2));
+
+  const itemsCombinations = subsets(items).reduce((map, itemCombination) => {
+    const combinationLength = itemCombination.length;
+    if (combinationLength > 0) {
+      map[combinationLength] = map[combinationLength]
+        ? [...map[combinationLength], itemCombination]
+        : [itemCombination];
+    }
+    return map;
+  }, {});
+
+  // console.log(JSON.stringify(itemsCombinations, null, 2));
+
+  return indexCombinations.flatMap((indexCombination) => {
+    const possibilities = itemsCombinations[indexCombination.length];
+    if (!possibilities) {
+      return [];
+    }
+
+    return possibilities.map((possibilityEntry, i) => {
+      const result = [...arr];
+      possibilityEntry.forEach((p) => {
+        result.splice(indexCombination[i], 0, p);
+      });
+      return result;
+    });
+  });
+};
