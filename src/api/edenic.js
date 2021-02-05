@@ -1,4 +1,7 @@
-import { appendGeneratedPossibilities } from './combinators';
+import {
+  appendGeneratedPossibilities,
+  permutateInsertions,
+} from './combinators';
 
 const MAPPING_HEBREW = {
   א: ['A', 'E', 'I', 'O', 'U'], //TODO Should replace by OO or OA?
@@ -30,6 +33,23 @@ const MAPPING_HEBREW = {
   ת: ['T', 'TH', '(S)'],
 };
 
+const VOWELS_NATIVE = [
+  '[A]',
+  '[E]',
+  '[I]',
+  '[O]',
+  '[U]',
+  'A',
+  'E',
+  'I',
+  'O',
+  'U',
+  'OO',
+  'OA',
+];
+
+const VOWELS_ADDED = ['a', 'e', 'i', 'o', 'u'];
+
 /**
  * Validate a hebrew letter.
  */
@@ -48,4 +68,42 @@ export const transcribeHebrewLetter = (hebrewLetter) =>
 export const transcribeHebrewWord = (hebrewWord) => {
   const validWord = [...hebrewWord].filter((l) => isHebrewLetter(l));
   return appendGeneratedPossibilities(validWord, transcribeHebrewLetter);
+};
+
+/**
+ * Skip edenic vowels
+ * @param {boolean} v
+ */
+export const ignoreEdenicVowels = (v) => VOWELS_NATIVE.includes(v);
+
+/**
+ * Generates all  the possibilities of inserting vowels into words.
+ * @param {array} arrWord
+ * @param {array} vowels
+ * @param {function} ignoreInsertion
+ */
+export const insertVowels = (
+  arrWord,
+  vowels = VOWELS_ADDED,
+  ignoreInsertion = ignoreEdenicVowels,
+) => {
+  if (!arrWord || arrWord.length === 0) {
+    return [];
+  }
+
+  if (!vowels || vowels.length === 0) {
+    return [[...arrWord]];
+  }
+
+  return [
+    ...new Set(
+      vowels.flatMap((v) => {
+        if (!ignoreInsertion && ignoreInsertion(v)) {
+          return [];
+        }
+
+        return permutateInsertions(arrWord, v);
+      }),
+    ),
+  ];
 };
