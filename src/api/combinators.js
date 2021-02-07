@@ -114,44 +114,55 @@ export const permutateInsertions = (arr, item) => {
   ];
 };
 
-//TODO Make it clear the difference between combinations and permutations
-//WIP Rethink about it
-export const insertAllPossibleCombinations = (arr, items) => {
-  console.log(`${arr} => ${items}`);
+// TODO Documentation
+export const subPermutations = (arr) => [
+  ...new Set(
+    subsets(arr)
+      .filter((a) => a.length > 0)
+      .flatMap((b) => permutations(b)),
+  ),
+];
 
-  const indexCombinations = subsets([...arr.keys(), arr.length])
-    .filter((ic) => ic.length > 0)
-    .flatMap((c) => permutations(c));
-  // console.log(JSON.stringify(indexCombinations, null, 2)); //CORRECT
+// TODO Documentation
+export const groupBySize = (arr) =>
+  arr.reduce((map, item) => {
+    map[item.length] = map[item.length] ? [...map[item.length], item] : [item];
+    return map;
+  }, {});
 
-  const itemsCombinations = subsets(items)
-    .filter((ic) => ic.length > 0)
-    .flatMap((c) => permutations(c))
-    .reduce((map, itemCombination) => {
-      const combinationLength = itemCombination.length;
-      console.log(JSON.stringify(itemCombination, null, 2));
+// TODO Documentation and move file
+export const filterByMaximumSize = (arr, size) =>
+  arr.filter((item) => item.length <= size);
 
-      if (combinationLength > 0) {
-        map[combinationLength] = map[combinationLength]
-          ? [...map[combinationLength], itemCombination]
-          : [itemCombination];
-      }
-      return map;
-    }, {});
-  console.log(JSON.stringify(itemsCombinations, null, 2));
+export const filterByMinimumSize = (arr, size) =>
+  arr.filter((item) => item.length >= size);
 
-  return indexCombinations.flatMap((indexCombination) => {
-    const possibilities = itemsCombinations[indexCombination.length];
-    if (!possibilities) {
-      return [];
-    }
-
-    return possibilities.map((possibilityEntry, i) => {
-      const result = [...arr];
-      possibilityEntry.forEach((p) => {
-        result.splice(indexCombination[i], 0, p);
-      });
-      return result;
-    });
+// TODO Document
+export const zip = (a, b) => {
+  return a.map((e, i) => {
+    return [e, b[i]];
   });
+};
+
+export const insertItems = (arr, indexes, items) => {
+  const initialIndexes = [...arr.keys()];
+  const content = zip(items, indexes);
+
+  //WIP
+
+  return `${arr}-${content}`;
+};
+
+// TODO Make it clear the difference between combinations and permutations
+// TODO Documentation
+export const insertAllPossibleCombinations = (arr, items) => {
+  const itemSubsets = groupBySize(filterByMinimumSize(subsets(items), 1));
+  const possibleIndexes = filterByMaximumSize(
+    subPermutations([...arr.keys(), arr.length]),
+    items.length,
+  );
+  const result = possibleIndexes.flatMap((idx) =>
+    itemSubsets[idx.length].map((ts) => insertItems(arr, idx, ts)),
+  );
+  return result;
 };

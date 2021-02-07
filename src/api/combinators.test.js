@@ -141,7 +141,9 @@ describe('Combinatory functions', () => {
 
   describe('insertAllPossibleCombinations', () => {
     test('Fully loaded', () => {
-      expect(c.insertAllPossibleCombinations(['a, b'], ['1', '2'])).toEqual([]); //TODO
+      expect(
+        c.insertAllPossibleCombinations(['a', 'b', 'c'], ['x', 'y']),
+      ).toEqual([]); //TODO
     });
   });
 });
