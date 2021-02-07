@@ -6,4 +6,9 @@ export default {
       return Promise.resolve(edenic.transcribeHebrewWord(word));
     },
   },
+  vowels: {
+    inserAll(word) {
+      return Promise.resolve(edenic.transcribeHebrewWord(word));
+    },
+  },
 };

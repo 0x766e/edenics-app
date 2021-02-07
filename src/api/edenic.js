@@ -1,6 +1,6 @@
 import {
   appendGeneratedPossibilities,
-  permutateInsertions,
+  insertAllPossibleCombinations,
 } from './combinators';
 
 const MAPPING_HEBREW = {
@@ -80,7 +80,7 @@ export const ignoreEdenicVowels = (v) => VOWELS_NATIVE.includes(v);
  * Generates all  the possibilities of inserting vowels into words.
  * @param {array} arrWord
  * @param {array} vowels
- * @param {function} ignoreInsertion
+ * @param {function} ignoreInsertion //TODO FIXME
  */
 export const insertVowels = (
   arrWord,
@@ -95,15 +95,5 @@ export const insertVowels = (
     return [[...arrWord]];
   }
 
-  return [
-    ...new Set(
-      vowels.flatMap((v) => {
-        if (!ignoreInsertion && ignoreInsertion(v)) {
-          return [];
-        }
-
-        return permutateInsertions(arrWord, v);
-      }),
-    ),
-  ];
+  return [...new Set(insertAllPossibleCombinations(arrWord, vowels))];
 };

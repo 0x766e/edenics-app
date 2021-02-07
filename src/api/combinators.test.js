@@ -142,8 +142,29 @@ describe('Combinatory functions', () => {
   describe('insertAllPossibleCombinations', () => {
     test('Fully loaded', () => {
       expect(
-        c.insertAllPossibleCombinations(['a', 'b', 'c'], ['x', 'y']),
-      ).toEqual([]); //TODO
+        c.insertAllPossibleCombinations(['a', 'b', 'c'], ['x', 'y']).sort(),
+      ).toEqual([
+        ['a', 'b', 'x', 'c'],
+        ['a', 'b', 'y', 'c'],
+        ['a', 'x', 'b', 'c'],
+        ['a', 'x', 'b', 'y', 'c'],
+        ['a', 'y', 'b', 'c'],
+        ['a', 'y', 'b', 'x', 'c'],
+        ['x', 'a', 'b', 'c'],
+        ['x', 'a', 'b', 'c'],
+        ['x', 'a', 'b', 'y', 'c'],
+        ['x', 'a', 'b', 'y', 'c'],
+        ['x', 'a', 'y', 'b', 'c'],
+        ['x', 'a', 'y', 'b', 'c'],
+        ['x', 'y', 'a', 'b', 'c'],
+        ['x', 'y', 'a', 'b', 'c'],
+        ['y', 'a', 'b', 'c'],
+        ['y', 'a', 'b', 'c'],
+        ['y', 'a', 'b', 'x', 'c'],
+        ['y', 'a', 'x', 'b', 'c'],
+        ['y', 'a', 'x', 'b', 'c'],
+        ['y', 'x', 'a', 'b', 'c'],
+      ]); //TODO VALIDATE
     });
   });
 });

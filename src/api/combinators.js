@@ -144,13 +144,23 @@ export const zip = (a, b) => {
   });
 };
 
+// TODO WIP
+// TODO DOCUMENT
 export const insertItems = (arr, indexes, items) => {
-  const initialIndexes = [...arr.keys()];
-  const content = zip(items, indexes);
+  const [result] = zip(items, indexes).reduce(
+    ([previous, state], [item, index]) => {
+      const next = [...previous];
+      const mappedIndex = state[index];
+      for (let i = mappedIndex; i < state.length; i++) {
+        state[i] = state[i] + 1;
+      }
+      next.splice(mappedIndex, 0, item);
+      return [next, state];
+    },
+    [[...arr], [...arr.keys()]],
+  );
 
-  //WIP
-
-  return `${arr}-${content}`;
+  return result;
 };
 
 // TODO Make it clear the difference between combinations and permutations
