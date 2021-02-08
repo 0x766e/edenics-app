@@ -7,11 +7,10 @@ import SearchBar from './SearchBar';
 export default function NavigationBar(props) {
   return (
     <Navbar>
-      <Navbar.Brand href="/">
-        <Logo isCompact />
-      </Navbar.Brand>
-
-      <Navbar.Collapse className="justify-content-end">
+      <Navbar.Collapse>
+        <Navbar.Brand href="/">
+          <Logo isCompact />
+        </Navbar.Brand>
         <Form inline>
           <SearchBar
             isCompact
