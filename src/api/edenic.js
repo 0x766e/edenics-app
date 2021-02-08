@@ -97,3 +97,18 @@ export const insertVowels = (
 
   return [...new Set(insertAllPossibleCombinations(arrWord, vowels))];
 };
+
+// TODO Document test etc all the following methods
+export const findNasalization = (base, result) => {};
+export const findMetathesis = (base, result) => {};
+export const isReverse = (base, result) => {};
+export const findLetterShift = (base, result) => {
+  // S = letter shifts: [all vowels are interchangeable, no shifts needed]
+  // S-B = bilabial shift [interchangeable lip letters: B,F,P,PH,V,W],
+  // S-F = fricative shift,[interchangeable whistling letters: Soft C,S,SH,TS,Z]
+  // S-G = guttural shift [interchangeable throat letters: Hard C,G,K,Q]
+  // S-D = dental shift [interchangeable tooth letters: D, T, TH, TS]
+  // S-L = liquid shift [interchangeable tongue letters: L,R]
+  // S-N = nasal shift  [interchangeable nose letters: M,N]
+};
+export const identifyTransformations = (base, result) => {};

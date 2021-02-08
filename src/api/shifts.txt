@@ -1,0 +1,34 @@
+Vowels
+===============
+Shifts withing the category
+Can disappear
+Y can render J (foreign)
+
+Bilabials
+==============
+Shifts withing the category 
+
+Gutturals
+==============
+Shifts withing the category 
+Can be dropped
+Can turn into vowel
+G can shift to J/Y
+
+Dental
+==============
+Shifts withing the category 
+
+Nasal
+============
+Shifts withing the category 
+
+Liquid
+============
+Shifts withing the category 
+Sometimes can shift to N
+
+Fricative
+===========
+Shifts withing the category
+Z can shift to TS/ST 
