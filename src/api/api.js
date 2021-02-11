@@ -11,25 +11,23 @@ export default {
       }
 
       if (scramble) {
-        result = [...result, ...result.flatMap((w) => edenic.scramble(w))];
+        result = result.flatMap((w) => edenic.scramble(w));
       }
 
       if (nasalization) {
-        result = [
-          ...result,
-          ...result.flatMap((w) => edenic.insertNasalization(w)),
-        ];
+        result = result.flatMap((w) => edenic.insertNasalization(w));
       }
 
       if (vowels) {
-        result = [...result, ...result.flatMap((w) => edenic.insertVowels(w))];
+        result = result.flatMap((w) => edenic.insertVowels(w));
       }
 
       result = [...new Set(result)]
-        .map((r) => [r, edenic.identifyTransformations(word, r)])
         .sort((a, b) =>
           a.join('').toLowerCase().localeCompare(b.join('').toLowerCase()),
-        );
+        )
+        .map((r) => [r, edenic.identifyTransformations(word, r)]);
+
       resolve(result);
     });
   },

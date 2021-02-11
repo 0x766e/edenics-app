@@ -1,6 +1,7 @@
 import {
   appendGeneratedPossibilities,
   insertAllPossibleCombinations,
+  permutations,
 } from './combinators';
 
 const MAPPING_HEBREW = {
@@ -50,6 +51,8 @@ const VOWELS_NATIVE = [
 
 const VOWELS_ADDED = ['a', 'e', 'i', 'o', 'u'];
 
+const NASAL_SOUNDS = ['M', 'N'];
+
 /**
  * Validate a hebrew letter.
  */
@@ -87,6 +90,7 @@ export const insertVowels = (
   vowels = VOWELS_ADDED,
   ignoreInsertion = ignoreEdenicVowels,
 ) => {
+  //TODO Extract into a separate function
   if (!arrWord || arrWord.length === 0) {
     return [];
   }
@@ -99,8 +103,19 @@ export const insertVowels = (
 };
 
 export const shiftLetters = (word) => [[`${word}-s1`], [`${word}-s2`]];
-export const scramble = (word) => [[`${word}-m1`], [`${word}-m2`]];
-export const insertNasalization = (word) => [[`${word}-n1`], [`${word}-n2`]];
+export const scramble = (word) => permutations(word);
+export const insertNasalization = (arrWord, nasalSounds = NASAL_SOUNDS) => {
+  //TODO Extract into a separate function
+  if (!arrWord || arrWord.length === 0) {
+    return [];
+  }
+
+  if (!nasalSounds || nasalSounds.length === 0) {
+    return [[...arrWord]];
+  }
+
+  return [...new Set(insertAllPossibleCombinations(arrWord, nasalSounds))];
+};
 
 // TODO Document test etc all the following methods
 export const findNasalization = (base, result) => {};
