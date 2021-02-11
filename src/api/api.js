@@ -26,9 +26,14 @@ export default {
         .sort((a, b) =>
           a.join('').toLowerCase().localeCompare(b.join('').toLowerCase()),
         )
-        .map((r) => [r, edenic.identifyTransformations(word, r)]);
+        .map((r, i) => [r, edenic.identifyTransformations(word, r), i]);
 
       resolve(result);
     });
+  },
+
+  paginate(array, pageSize, pageNumber) {
+    // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   },
 };

@@ -12,6 +12,8 @@ export default function Result(props) {
   const currentWord = useContext(WordContext);
 
   const [wordAnalysis, setWordAnalysis] = useState([]);
+  const [pageSize, setPageSize] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filterCriteria, setFilterCriteria] = useState({
     vowels: false,
     shifts: false,
@@ -84,17 +86,21 @@ export default function Result(props) {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>#</th>
               <th>Word</th>
               <th>Transformation</th>
             </tr>
           </thead>
           <tbody>
-            {wordAnalysis.map(([word, transformations]) => (
-              <tr>
-                <td>{word}</td>
-                <td>{transformations}</td>
-              </tr>
-            ))}
+            {api
+              .paginate(wordAnalysis, pageSize, currentPage)
+              .map(([word, transformations, index]) => (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{word}</td>
+                  <td>{transformations}</td>
+                </tr>
+              ))}
           </tbody>
         </Table>
         <Pagination>
