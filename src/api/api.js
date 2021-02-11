@@ -7,7 +7,7 @@ export default {
       let result = edenic.transcribeHebrewWord(word);
 
       if (shifts) {
-        result = [...result, ...result.flatMap((w) => edenic.shiftLetters(w))];
+        result = result.flatMap((w) => edenic.shiftLetters(w));
       }
 
       if (scramble) {

@@ -34,6 +34,8 @@ const MAPPING_HEBREW = {
   ת: ['T', 'TH', '(S)'],
 };
 
+const SHIFT_MAPPING = {};
+
 const VOWELS_NATIVE = [
   '[A]',
   '[E]',
@@ -102,7 +104,10 @@ export const insertVowels = (
   return [...new Set(insertAllPossibleCombinations(arrWord, vowels))];
 };
 
-export const shiftLetters = (word) => [[`${word}-s1`], [`${word}-s2`]];
+export const shiftLetters = (word, shiftMappings = SHIFT_MAPPING) => {
+  const shiftCurrentLetter = (letter) => [letter, '1', '2'];
+  return appendGeneratedPossibilities(word, shiftCurrentLetter);
+};
 export const scramble = (word) => permutations(word);
 export const insertNasalization = (arrWord, nasalSounds = NASAL_SOUNDS) => {
   //TODO Extract into a separate function
