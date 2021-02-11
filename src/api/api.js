@@ -1,36 +1,36 @@
 import * as edenic from './edenic';
 
 export default {
-  transcription: {
-    fromHebrew(word) {
-      return Promise.resolve(edenic.transcribeHebrewWord(word));
-    },
-  },
-  vowels: {
-    insertAll(word) {
-      return Promise.resolve(edenic.insertVowels(word));
-    },
-  },
+  analyze(word, filterCriteria = {}) {
+    return new Promise((resolve) => {
+      const { vowels, shifts, scramble, nasalization } = filterCriteria;
+      let result = edenic.transcribeHebrewWord(word);
 
-  shift: {
-    shiftAll(word) {
-      return Promise.resolve(['shift1', 'shift2', 'shift3']);
-    },
-  },
+      if (shifts) {
+        result = [...result, ...result.flatMap((w) => edenic.shiftLetters(w))];
+      }
 
-  metathesis: {
-    scramble(word) {
-      return Promise.resolve(['scramble1', 'scramble2', 'scramble3']);
-    },
-  },
+      if (scramble) {
+        result = [...result, ...result.flatMap((w) => edenic.scramble(w))];
+      }
 
-  nasalization: {
-    insertAll(word) {
-      return Promise.resolve([
-        'nasalization1',
-        'nasalization2',
-        'nasalization3',
-      ]);
-    },
+      if (nasalization) {
+        result = [
+          ...result,
+          ...result.flatMap((w) => edenic.insertNasalization(w)),
+        ];
+      }
+
+      if (vowels) {
+        result = [...result, ...result.flatMap((w) => edenic.insertVowels(w))];
+      }
+
+      result = [...new Set(result)]
+        .map((r) => [r, edenic.identifyTransformations(word, r)])
+        .sort((a, b) =>
+          a.join('').toLowerCase().localeCompare(b.join('').toLowerCase()),
+        );
+      resolve(result);
+    });
   },
 };

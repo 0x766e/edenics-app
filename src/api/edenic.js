@@ -98,6 +98,10 @@ export const insertVowels = (
   return [...new Set(insertAllPossibleCombinations(arrWord, vowels))];
 };
 
+export const shiftLetters = (word) => [[`${word}-s1`], [`${word}-s2`]];
+export const scramble = (word) => [[`${word}-m1`], [`${word}-m2`]];
+export const insertNasalization = (word) => [[`${word}-n1`], [`${word}-n2`]];
+
 // TODO Document test etc all the following methods
 export const findNasalization = (base, result) => {};
 export const findMetathesis = (base, result) => {};
@@ -111,4 +115,4 @@ export const findLetterShift = (base, result) => {
   // S-L = liquid shift [interchangeable tongue letters: L,R]
   // S-N = nasal shift  [interchangeable nose letters: M,N]
 };
-export const identifyTransformations = (base, result) => {};
+export const identifyTransformations = (base, result) => result.length;
