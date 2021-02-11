@@ -34,7 +34,91 @@ const MAPPING_HEBREW = {
   ת: ['T', 'TH', '(S)'],
 };
 
-const SHIFT_MAPPING = {};
+const SHIFT_MAPPING = {
+  A: ['', 'A', 'E', 'I', 'O', 'U'],
+  E: ['', 'A', 'E', 'I', 'O', 'U'],
+  I: ['', 'A', 'E', 'I', 'O', 'U'],
+  O: ['', 'A', 'E', 'I', 'O', 'U'],
+  U: ['', 'A', 'E', 'I', 'O', 'U'],
+  '[A]': ['', '[A]', '[E]', '[I]', '[O]', '[U]'],
+  '[E]': ['', '[A]', '[E]', '[I]', '[O]', '[U]'],
+  '[I]': ['', '[A]', '[E]', '[I]', '[O]', '[U]'],
+  '[O]': ['', '[A]', '[E]', '[I]', '[O]', '[U]'],
+  '[U]': ['', '[A]', '[E]', '[I]', '[O]', '[U]'],
+  B: ['B', 'BH', '(V)', 'P', 'PH', 'F'],
+  BH: ['B', 'BH', '(V)', 'P', 'PH', 'F'],
+  '(V)': ['B', 'BH', '(V)', 'V', 'P', 'PH', 'F'],
+  V: ['B', 'BH', '(V)', 'V', 'P', 'PH', 'F'],
+  P: ['B', 'BH', '(V)', 'V', 'P', 'PH', 'F'],
+  PH: ['B', 'BH', '(V)', 'V', 'P', 'PH', 'F'],
+  F: ['B', 'BH', '(V)', 'V', 'P', 'PH', 'F'],
+  G: [
+    '',
+    'G',
+    'J',
+    'Y',
+    'H',
+    '[K]H',
+    'K[H]',
+    'K',
+    'KH',
+    'Q',
+    'a',
+    'e',
+    'i',
+    'o',
+    'u',
+  ],
+  H: ['', 'G', 'H', '[K]H', 'K[H]', 'K', 'KH', 'Q', 'a', 'e', 'i', 'o', 'u'],
+  '[K]H': [
+    '',
+    'G',
+    'H',
+    '[K]H',
+    'K[H]',
+    'K',
+    'KH',
+    'Q',
+    'a',
+    'e',
+    'i',
+    'o',
+    'u',
+  ],
+  'K[H]': [
+    '',
+    'G',
+    'H',
+    '[K]H',
+    'K[H]',
+    'K',
+    'KH',
+    'Q',
+    'a',
+    'e',
+    'i',
+    'o',
+    'u',
+  ],
+  K: ['', 'G', 'H', '[K]H', 'K[H]', 'K', 'KH', 'Q', 'a', 'e', 'i', 'o', 'u'],
+  KH: ['', 'G', 'H', '[K]H', 'K[H]', 'K', 'KH', 'Q', 'a', 'e', 'i', 'o', 'u'],
+  Q: ['', 'G', 'H', '[K]H', 'K[H]', 'K', 'KH', 'Q', 'a', 'e', 'i', 'o', 'u'],
+  D: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  DT: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  TS: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  ST: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  T: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  TH: ['D', 'DT', 'TS', 'ST', 'T', 'TH'],
+  N: ['N', 'M'],
+  M: ['N', 'M'],
+  L: ['L', 'R', 'WR', 'N'],
+  R: ['L', 'R', 'WR', 'N'],
+  WR: ['L', 'R', 'WR', 'N'],
+  Z: ['Z', '$', 'SH', 'S'],
+  $: ['Z', '$', 'SH', 'S'],
+  SH: ['Z', '$', 'SH', 'S'],
+  S: ['Z', '$', 'SH', 'S'],
+};
 
 const VOWELS_NATIVE = [
   '[A]',
@@ -105,9 +189,12 @@ export const insertVowels = (
 };
 
 export const shiftLetters = (word, shiftMappings = SHIFT_MAPPING) => {
-  const shiftCurrentLetter = (letter) => [letter, '1', '2'];
-  return appendGeneratedPossibilities(word, shiftCurrentLetter);
+  const shiftCurrentLetter = (letter) => SHIFT_MAPPING[letter];
+  return appendGeneratedPossibilities(word, shiftCurrentLetter)
+    .map((r) => r.filter((i) => i !== ''))
+    .filter((r) => r.length > 0);
 };
+
 export const scramble = (word) => permutations(word);
 export const insertNasalization = (arrWord, nasalSounds = NASAL_SOUNDS) => {
   //TODO Extract into a separate function
