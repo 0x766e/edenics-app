@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import ApiContext from '../contexts/ApiContext';
 import WordContext from '../contexts/WordContext';
-import tst from './workertst';
 
 const paginate = (array, pageSize, pageNumber) =>
   array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
@@ -29,11 +28,6 @@ export default function Result(props) {
     api.analyze(currentWord, filterCriteria).then((result) => {
       setWordAnalysis(result);
     });
-
-    (async () => {
-      console.log('3 + 9 = ', await tst.add(3, 9));
-      console.log('1 + 2 = ', await tst.add(1, 2));
-    })();
   }, [filterCriteria, currentWord, api]);
 
   return (
