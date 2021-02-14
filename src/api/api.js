@@ -1,6 +1,12 @@
 import * as edenic from './edenic';
+import worker from './edenicsWorker';
+import WebWorker from './workerSetup';
 
 export class Api {
+  constructor() {
+    this.worker = new WebWorker(worker);
+  }
+
   analyze(word, filterCriteria = {}) {
     return new Promise((resolve) => {
       const { vowels, shifts, scramble, nasalization } = filterCriteria;
@@ -29,6 +35,16 @@ export class Api {
         .map((r, i) => [r, edenic.identifyTransformations(word, r), i]);
 
       resolve(result);
+    });
+  }
+
+  analyzeWorker(word, filterCriteria = {}) {
+    return new Promise((resolve) => {
+      this.worker.onmessage = function (e) {
+        resolve(e.data);
+      };
+
+      this.worker.postMessage({ word, filterCriteria });
     });
   }
 }

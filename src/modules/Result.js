@@ -28,7 +28,10 @@ export default function Result(props) {
     api.analyze(currentWord, filterCriteria).then((result) => {
       setWordAnalysis(result);
     });
-    api.ping().then((result) => console.log(result));
+
+    api.analyzeWorker(currentWord, filterCriteria).then((result) => {
+      console.log(result);
+    });
   }, [filterCriteria, currentWord, api]);
 
   return (

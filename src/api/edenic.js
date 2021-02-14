@@ -223,3 +223,32 @@ export const findLetterShift = (base, result) => {
   // S-N = nasal shift  [interchangeable nose letters: M,N]
 };
 export const identifyTransformations = (base, result) => result.length;
+
+export const analyze = (word, filterCriteria = {}) => {
+  const { vowels, shifts, scramble, nasalization } = filterCriteria;
+  let result = transcribeHebrewWord(word);
+
+  if (shifts) {
+    result = result.flatMap((w) => shiftLetters(w));
+  }
+
+  if (scramble) {
+    result = result.flatMap((w) => scramble(w));
+  }
+
+  if (nasalization) {
+    result = result.flatMap((w) => insertNasalization(w));
+  }
+
+  if (vowels) {
+    result = result.flatMap((w) => insertVowels(w));
+  }
+
+  result = [...new Set(result)]
+    .sort((a, b) =>
+      a.join('').toLowerCase().localeCompare(b.join('').toLowerCase()),
+    )
+    .map((r, i) => [r, identifyTransformations(word, r), i]);
+
+  return result;
+};
