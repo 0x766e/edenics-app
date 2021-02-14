@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import ApiContext from '../contexts/ApiContext';
 import WordContext from '../contexts/WordContext';
+import WebWorker from './workerSetup';
+import workerSource from './worker';
 
 const paginate = (array, pageSize, pageNumber) =>
   array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
@@ -28,6 +30,12 @@ export default function Result(props) {
     api.analyze(currentWord, filterCriteria).then((result) => {
       setWordAnalysis(result);
     });
+
+    const worker = new WebWorker(workerSource);
+    worker.onmessage = function (e) {
+      console.log(e.data);
+    };
+    worker.postMessage('ping');
   }, [filterCriteria, currentWord, api]);
 
   return (
