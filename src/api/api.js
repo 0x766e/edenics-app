@@ -1,6 +1,6 @@
 import * as edenic from './edenic';
 
-export default {
+export class Api {
   analyze(word, filterCriteria = {}) {
     return new Promise((resolve) => {
       const { vowels, shifts, scramble, nasalization } = filterCriteria;
@@ -30,5 +30,5 @@ export default {
 
       resolve(result);
     });
-  },
-};
+  }
+}
