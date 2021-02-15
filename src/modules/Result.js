@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
+import LoadingPopUp from '../components/LoadingPopUp';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
@@ -15,6 +16,7 @@ export default function Result(props) {
   const currentWord = useContext(WordContext);
 
   const [wordAnalysis, setWordAnalysis] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [pageSize, setPageSize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCriteria, setFilterCriteria] = useState({
@@ -25,13 +27,16 @@ export default function Result(props) {
   });
 
   useEffect(() => {
-    api.analyze(currentWord, filterCriteria).then((result) => {
-      setWordAnalysis(result);
-    });
-
-    api.analyzeWorker(currentWord, filterCriteria).then((result) => {
-      console.log(result);
-    });
+    setLoading(true);
+    api
+      .analyze(currentWord, filterCriteria)
+      .then((result) => {
+        setWordAnalysis(result);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [filterCriteria, currentWord, api]);
 
   return (
@@ -128,6 +133,7 @@ export default function Result(props) {
           <Pagination.Last />
         </Pagination>
       </Container>
+      <LoadingPopUp show={loading} />
     </>
   );
 }
