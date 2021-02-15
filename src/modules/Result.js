@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import LoadingPopUp from '../components/LoadingPopUp';
-import Pagination from 'react-bootstrap/Pagination';
+import ResultPagination from '../components/ResultPagination';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -17,7 +17,7 @@ export default function Result(props) {
 
   const [wordAnalysis, setWordAnalysis] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPagesize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCriteria, setFilterCriteria] = useState({
     vowels: false,
@@ -115,23 +115,7 @@ export default function Result(props) {
             )}
           </tbody>
         </Table>
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item active>{12}</Pagination.Item>
-          <Pagination.Item>{13}</Pagination.Item>
-          <Pagination.Item disabled>{14}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
+        <ResultPagination />
       </Container>
       <LoadingPopUp show={loading} />
     </>
