@@ -14,12 +14,32 @@ export default function Result(props) {
 
   const [wordAnalysis, setWordAnalysis] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filterCriteria, setFilterCriteria] = useState({
     vowels: false,
     shifts: false,
     scramble: false,
     nasalization: false,
   });
+
+  const handleSearch = (searchTerm) => {
+    setCurrentPage(1);
+    setFilterCriteria({
+      vowels: false,
+      shifts: false,
+      scramble: false,
+      nasalization: false,
+    });
+
+    if (props.onSearch) {
+      props.onSearch(searchTerm);
+    }
+  };
+
+  const handleCriteriaChange = (criteria) => {
+    setFilterCriteria(criteria);
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -36,14 +56,18 @@ export default function Result(props) {
 
   return (
     <>
-      <NavigationBar searchTerm={currentWord} onSearch={props.onSearch} />
+      <NavigationBar searchTerm={currentWord} onSearch={handleSearch} />
       <Container>
         <h1>Root: {currentWord}</h1>
         <WordTableControl
           criteria={filterCriteria}
-          onCriteriaChange={(criteria) => setFilterCriteria(criteria)}
+          onCriteriaChange={handleCriteriaChange}
         />
-        <ResultPagination items={wordAnalysis}>
+        <ResultPagination
+          items={wordAnalysis}
+          currentPage={currentPage}
+          onCurrentPageChange={(page) => setCurrentPage(page)}
+        >
           <WordTable />
         </ResultPagination>
       </Container>

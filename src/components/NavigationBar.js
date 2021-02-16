@@ -6,7 +6,12 @@ import SearchBar from './SearchBar';
 
 export default function NavigationBar(props) {
   return (
-    <Navbar>
+    <Navbar
+      sticky="top"
+      style={{
+        backgroundColor: 'white',
+      }}
+    >
       <Navbar.Collapse>
         <Navbar.Brand href="/">
           <Logo isCompact />
