@@ -20,6 +20,7 @@ export default function Result(props) {
     shifts: false,
     scramble: false,
     nasalization: false,
+    filterTerm: '',
   });
 
   const handleSearch = (searchTerm) => {
@@ -29,6 +30,7 @@ export default function Result(props) {
       shifts: false,
       scramble: false,
       nasalization: false,
+      filterTerm: '',
     });
 
     if (props.onSearch) {

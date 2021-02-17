@@ -4,7 +4,7 @@ import { FaFilter as IconFilter } from 'react-icons/fa';
 
 export default function FilterdButton(props) {
   return (
-    <Button {...props} variant="dark">
+    <Button {...props} variant="light">
       <IconFilter />
     </Button>
   );

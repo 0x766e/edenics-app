@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import EdenicsWorker from './edenics.worker';
 
-const keyResolver = (word, criteria) =>
-  `${word}-${_.values(criteria).join('-')}`;
+const criteriaToKey = (criteria) => _.values(criteria).join('-');
 
 export class Api {
   constructor() {
@@ -12,14 +11,21 @@ export class Api {
 
   analyze(word, filterCriteria = {}) {
     const self = this;
-    const key = keyResolver(word, filterCriteria);
-    if (key in this.cache) {
-      return Promise.resolve(this.cache[key]);
+    const criteriaKey = criteriaToKey(filterCriteria);
+    if (word in this.cache && criteriaKey in this.cache[word]) {
+      return Promise.resolve(this.cache[word][criteriaKey]);
     }
 
     return new Promise((resolve) => {
       this.worker.onmessage = function (e) {
-        self.cache[key] = e.data;
+        if (!(word in self.cache)) {
+          self.cache = {};
+        }
+
+        self.cache[word] = {
+          criteriaKey: e.data,
+        };
+
         resolve(e.data);
       };
 

@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import FilterField from './FilterField';
 
 export default function WordTableControl({ criteria, onCriteriaChange }) {
+  const [filterTerm, setFilterTerm] = useState(criteria.filterTerm);
+
   return (
     <Form inline>
       <Form.Group>
-        <Form.Control type="text" placeholder="Filter" />
+        <FilterField
+          value={filterTerm}
+          onChange={(e) => setFilterTerm(e.target.value)}
+          onFilterClick={() =>
+            onCriteriaChange({
+              ...criteria,
+              filterTerm,
+            })
+          }
+        />
       </Form.Group>
       <Form.Group>
         <Form.Check

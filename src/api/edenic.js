@@ -225,7 +225,7 @@ export const findLetterShift = (base, result) => {
 export const identifyTransformations = (base, result) => result.length;
 
 export const analyze = (word, filterCriteria = {}) => {
-  const { vowels, shifts, scramble, nasalization } = filterCriteria;
+  const { vowels, shifts, scramble, nasalization, filterTerm } = filterCriteria;
   let result = transcribeHebrewWord(word);
 
   if (shifts) {
