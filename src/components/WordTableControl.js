@@ -4,19 +4,29 @@ import FilterField from './FilterField';
 
 export default function WordTableControl({ criteria, onCriteriaChange }) {
   const [filterTerm, setFilterTerm] = useState(criteria.filterTerm);
+  const [commitedFilter, setCommitedFilter] = useState(false);
+
+  const commitFilterTerm = () => {
+    setCommitedFilter(true);
+    onCriteriaChange({
+      ...criteria,
+      filterTerm,
+    });
+  };
+
+  if (commitedFilter && filterTerm !== criteria.filterTerm) {
+    setFilterTerm('');
+    setCommitedFilter(false);
+  }
 
   return (
     <Form inline>
       <Form.Group>
         <FilterField
+          highlight={commitedFilter}
           value={filterTerm}
           onChange={(e) => setFilterTerm(e.target.value)}
-          onFilterClick={() =>
-            onCriteriaChange({
-              ...criteria,
-              filterTerm,
-            })
-          }
+          onFilterClick={commitFilterTerm}
         />
       </Form.Group>
       <Form.Group>

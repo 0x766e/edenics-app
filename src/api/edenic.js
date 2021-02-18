@@ -250,5 +250,9 @@ export const analyze = (word, filterCriteria = {}) => {
     )
     .map((r, i) => [r, identifyTransformations(word, r), i]);
 
+  if (filterTerm && filterTerm.length > 0) {
+    result = result.filter(([w, _]) => w.join('').includes(filterTerm));
+  }
+
   return result;
 };
